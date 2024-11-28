@@ -2,12 +2,12 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Pong wars | Josh Garcia</title>
+    <title>Ping wars | Josh Garcia</title>
     <meta
       name="description"
       content="The eternal battle between day and night, good and bad. Written in JavaScript with some HTML & CSS in one index.html. Feel free to reuse the code and create your own version."
     />
-    <meta name="theme-color" content="#172B36" />
+    <meta name="theme-color" content="#1A3B1D" />
     <meta name="creator" content="Josh Garcia" />
     <style>
       html {
@@ -21,7 +21,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background: linear-gradient(to bottom, #172b36 0%, #d9e8e3 100%);
+        background: linear-gradient(to bottom, #1A3B1D 0%, #A8D5A7 100%);
       }
 
       #container {
@@ -47,7 +47,7 @@
         margin-top: 30px;
         font-size: 16px;
         padding-left: 20px;
-        color: #172b36;
+        color: #1A3B1D;
       }
 
       #made {
@@ -60,7 +60,7 @@
       }
 
       #made a {
-        color: #172b36;
+        color: #1A3B1D;
       }
     </style>
   </head>
@@ -79,26 +79,22 @@
   </body>
 
   <script>
-    // Source palette: https://twitter.com/AlexCristache/status/1738610343499157872
-    // Idea for Pong wars: https://twitter.com/nicolasdnl/status/1749715070928433161
-
     const colorPalette = {
-      ArcticPowder: "#F1F6F4",
-      MysticMint: "#D9E8E3",
-      Forsythia: "#FFC801",
-      DeepSaffron: "#FF9932",
-      NocturnalExpedition: "#114C5A",
-      OceanicNoir: "#172B36",
+      LightGreen: "#A8D5A7",
+      DarkGreen: "#1A3B1D",
+      LimeGreen: "#A7E075",
+      ForestGreen: "#4CAF50",
+      OliveGreen: "#558B2F",
     };
 
     const canvas = document.getElementById("pongCanvas");
     const ctx = canvas.getContext("2d");
     const scoreElement = document.getElementById("score");
 
-    const DAY_COLOR = colorPalette.MysticMint;
-    const DAY_BALL_COLOR = colorPalette.NocturnalExpedition;
-    const NIGHT_COLOR = colorPalette.NocturnalExpedition;
-    const NIGHT_BALL_COLOR = colorPalette.MysticMint;
+    const DAY_COLOR = colorPalette.LightGreen;
+    const DAY_BALL_COLOR = colorPalette.DarkGreen;
+    const NIGHT_COLOR = colorPalette.DarkGreen;
+    const NIGHT_BALL_COLOR = colorPalette.LightGreen;
     const SQUARE_SIZE = 25;
     const MIN_SPEED = 5;
     const MAX_SPEED = 10;
@@ -165,7 +161,6 @@
     }
 
     function checkSquareCollision(ball) {
-      // Check multiple points around the ball's circumference
       for (let angle = 0; angle < Math.PI * 2; angle += Math.PI / 4) {
         const checkX = ball.x + Math.cos(angle) * (SQUARE_SIZE / 2);
         const checkY = ball.y + Math.sin(angle) * (SQUARE_SIZE / 2);
@@ -175,10 +170,8 @@
 
         if (i >= 0 && i < numSquaresX && j >= 0 && j < numSquaresY) {
           if (squares[i][j] !== ball.reverseColor) {
-            // Square hit! Update square color
             squares[i][j] = ball.reverseColor;
 
-            // Determine bounce direction based on the angle
             if (Math.abs(Math.cos(angle)) > Math.abs(Math.sin(angle))) {
               ball.dx = -ball.dx;
             } else {
@@ -202,11 +195,9 @@
       ball.dx += Math.random() * 0.02 - 0.01;
       ball.dy += Math.random() * 0.02 - 0.01;
 
-      // Limit the speed of the ball
       ball.dx = Math.min(Math.max(ball.dx, -MAX_SPEED), MAX_SPEED);
       ball.dy = Math.min(Math.max(ball.dy, -MAX_SPEED), MAX_SPEED);
 
-      // Make sure the ball always maintains a minimum speed
       if (Math.abs(ball.dx) < MIN_SPEED) ball.dx = ball.dx > 0 ? MIN_SPEED : -MIN_SPEED;
       if (Math.abs(ball.dy) < MIN_SPEED) ball.dy = ball.dy > 0 ? MIN_SPEED : -MIN_SPEED;
     }
